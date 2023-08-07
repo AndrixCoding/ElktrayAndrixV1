@@ -1,0 +1,315 @@
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
+local Window = Library.CreateLib("ElktrayAndrix V1", "Serpent")
+
+-- Tab
+
+local Tab1 = Window:NewTab("Main ")
+local Tab1Section = Tab1:NewSection("Main ")
+
+Tab1Section:NewToggle("KillAura V1 Not Working", "Button", function(state)
+    if state then
+            local kauraval = v
+            spawn(function()
+                if kauraval and entity.isAlive then
+                    conectionkillaura = RunService.RenderStepped:Connect(function(step)
+                        if not kauraval then 
+                            return
+                        end
+                        if entity.isAlive then
+                            KillauraRemote()
+                        end
+                    end)
+                else
+                    conectionkillaura:Disconnect()
+                    return
+                end
+            end)
+            spawn(function()
+                repeat
+                    wait()
+                    if entity.isAlive then
+                        if killauraanimval["Value"] == "Cool" then
+                            task.wait(0.30)
+                            if (not kauraval) then return end
+                            funianimthing()
+                        elseif killauraanimval["Value"] == "Thing" then
+                            task.wait(0.16)
+                            if (not kauraval) then return end
+                            funianimthing()
+                        end
+                    end
+                until (not kauraval)
+            end)
+        end
+    
+    killauraissoundenabled = katog:CreateOptionTog({
+        ["Name"] = "Swing Sound",
+        ["Func"] = function() end
+    })
+    killaurasoundvalue = katog:CreateSlider({
+        ["Name"] = "Sound",
+        ["Function"] = function() end,
+        ["Min"] = 0,
+        ["Max"] = 1,
+        ["Default"] = 1,
+        ["Round"] = 1
+    })
+    killauraisswingenabled = katog:CreateOptionTog({
+        ["Name"] = "Swing Animation",
+        ["Func"] = function() end
+    })
+    DistVal = katog:CreateSlider({
+        ["Name"] = "Distance",
+        ["Function"] = function() end,
+        ["Min"] = 1,
+        ["Max"] = 20,
+        ["Default"] = 20,
+        ["Round"] = 1
+    })
+    killaurafirstpersonanim = katog:CreateOptionTog({
+        ["Name"] = "Anims (1rs person)",
+        ["Func"] = function() end
+    })
+    killauraanimval = katog:CreateDropDown({
+        ["Name"] = "AnimMode",
+        ["Function"] = function() end,
+        ["List"] = {"Cool", "Thing"},
+        ["Default"] = "Cool"
+    })
+end)
+
+Tab1Section:NewToggle("KillAuraV2 Working", "Nothingy", function(state)
+    if state then
+        local player = game:GetService("Players")
+        local lplr = player.LocalPlayer
+        local cam = workspace.CurrentCamera
+        local KnitClient = debug.getupvalue(require(lplr.PlayerScripts.TS.knit).setup, 6)
+        local SwordCont = KnitClient.Controllers.SwordController
+        
+        local aura = false
+        local DistVal = {["Value"] = 85}
+        
+        local connection
+        
+        function Aura()
+            for i,v in pairs(game.Players:GetChildren()) do
+                if v.Character and v.Name ~= game.Players.LocalPlayer.Name and v.Character:FindFirstChild("HumanoidRootPart") then
+                    local mag = (v.Character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+                    if mag <= DistVal["Value"] and v.Team ~= game.Players.LocalPlayer.Team and v.Character:FindFirstChild("Humanoid") then
+                        if v.Character.Humanoid.Health > 0 then
+                            aura = true
+                            SwordCont:swingSwordAtMouse()
+                        end
+                    end
+                end
+            end
+        end
+        
+        connection = game:GetService("RunService").Stepped:connect(function()
+            Aura()
+        end)
+    else
+        if connection then
+            connection:Disconnect()
+        end
+    end
+      		print("button pressed")
+end) 
+
+Tab1Section:NewToggle("NoClick Delay", "NoClick Delay", function(state)
+    if state then
+getgenv().funisus = v
+        spawn(function()
+            if getgenv().funisus and entity.isAlive then
+                for i2,v2 in pairs(itemtable) do
+                    if type(v2) == "table" and rawget(v2, "sword") then
+                        v2.sword.attackSpeed = 0.000000001
+                    end
+                    SwordCont.isClickingTooFast = function() return false end
+                end
+            else
+            end
+        end)
+    end
+ 
+    end)
+    
+    Tab1Section:NewToggle("Infinite Jumps", "Jumps Infinitely", function(state)
+    if state then
+local InfiniteJumpEnabled = true
+game:GetService("UserInputService").JumpRequest:connect(function()
+	if InfiniteJumpEnabled then
+		game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+	end
+end)
+    end
+end)
+
+Tab1Section:NewToggle("NoFall Damage(Works) ", "NoFall", function()
+    local NoFallEnabled = false -- this is a boolean variable indicating if NoFall is enabled
+
+    -- Function to toggle NoFall
+    local function toggleNoFall(state)
+        NoFallEnabled = state
+        if NoFallEnabled then
+            task.spawn(function()
+                repeat
+                    if not NoFallEnabled then break end
+                    task.wait(0.4)
+                    game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.GroundHit:FireServer()
+                until not NoFallEnabled
+            end)
+        end
+    end
+
+    toggleNoFall(not NoFallEnabled)
+end)
+
+Tab1Section:NewLabel("More") 
+
+Tab1Section:NewToggle("Levitation","",function(state) 
+ if state then
+ local Animate = 
+ game.Players.LocalPlayer.Character.Animate 
+ Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616006778"
+Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616008087"
+Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616013216"
+Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616010382"
+Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616008936"
+Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616003713"
+Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616005863"
+ end
+ end) 
+ 
+Tab1Section:NewToggle("Cartoony","?",function(state) 
+if state then
+ local Animate = 
+ game.Players.LocalPlayer.Character.Animate 
+ Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=742637544"
+Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=742638445"
+Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=742640026"
+Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=742638842"
+Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=742637942"
+Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=742636889"
+Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=742637151"
+ end
+ end) 
+
+Tab1Section:NewToggle("Pirate","?",function(state)
+if state then
+    local Animate =
+ game.Players.LocalPlayer.Character.Animate
+ Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=750781874"
+Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=750782770"
+Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=750785693"
+Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=750783738"
+Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=750782230"
+Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=750779899"
+Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=750780242"
+end
+end) 
+
+Tab1Section:NewToggle("Vampire","?",function(state)
+if state then
+    local Animate = 
+ game.Players.LocalPlayer.Character.Animate
+ Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1083445855"
+Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1083450166"
+Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1083473930"
+Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1083462077"
+Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=1083455352"
+Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=1083439238"
+Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=1083443587"
+end
+end) 
+
+Tab1Section:NewToggle("Stylish","?",function(state)
+if state then
+    local Animate = 
+ game.Players.LocalPlayer.Character.Animate
+ Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616136790"
+Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616138447"
+Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616146177"
+Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616140816"
+Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616139451"
+Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616133594"
+Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616134815"
+end
+end) 
+
+local Tab3 = Window:NewTab("Speed ")
+local Tab3Section = Tab3:NewSection("Speed ")
+
+Tab3Section:NewButton("Speed 21.2", "Loads Vape Script", function()
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 21
+end) 
+
+Tab3Section:NewButton("Extra Speed", "Loads Vape Script", function()
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 22.1
+end) 
+
+Tab3Section:NewButton("Xtreme Speed", "Loads Vape Script", function()
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 70.90
+end) 
+
+local Tab2 = Window:NewTab("Hubs")
+local Tab2Section = Tab2:NewSection("Hubs") 
+
+local Tab2Section = Tab2:NewSection("JN HH GAMING") 
+
+Tab2Section:NewButton("JN Bedwars V10 ", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/YourLocalNzi/Ye/main/JNO10"))()
+end)
+
+Tab2Section:NewButton("JN Bedwars v5  ", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/JNHHGaming123/JNHHGaming123/main/JN%20HH%20Gaming%20Bedwars%20V5",true))()
+end) 
+
+Tab2Section:NewButton("AndrixMobile", "ButtonInfo", function()
+loadstring(game:HttpGet("https://pastebin.com/raw/EGJdJJqL"))()
+end)
+
+Tab2Section:NewButton("AshuraHub  ", "ButtonInfo", function()
+loadstring(game:HttpGet("https://pastebin.com/raw/A9G4faXL"))()
+end)
+
+Tab2Section:NewButton("HorionV1  ", "ButtonInfo", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/lightHubDev/Horion4roblox/main/Horion4roblox"))()
+end)
+
+local Tab4 = Window:NewTab("Credits")
+local Tab4Section = Tab4:NewSection("Credits")
+
+local Tab4Section = Tab4:NewSection("Made By Elktray")
+
+local Tab4Section = Tab4:NewSection("Roblox Name:Elktray7")
+
+local Tab4Section = Tab4:NewSection("Discord:elktrayandrix78")
+
+local Tab4Section = Tab4:NewSection("Instragram:ComingSoon")
+
+local Tab4Section = Tab4:NewSection("ElktrayAndrixV2 Coming Soon")
+
+game.StarterGui:SetCore("SendNotification", {
+    Title = "ElktrayAndrix V1";
+    Text = "Thank You"; -- what the text says (ofc)
+    Duration = 50;
+})
+wait(1)
+game.StarterGui:SetCore("SendNotification", {
+    Title = "You Executed The Script!! ";
+    Text = "Don't Forget to Subscribe To EL Team ElktrayAndrix"; -- what the text says (ofc)
+    Duration = 60;
+})
+
+local Tab5 = Window:NewTab("More About Me")
+local Tab5Section = Tab5:NewSection("More About Me") 
+
+local Tab5Section = Tab5:NewSection("MY Name Is ElktrayAndrix Curson") 
+
+local Tab5Section = Tab5:NewSection("BYE! Thank You For Using The Script") 
+
+local Tab5Section = Tab5:NewSection("Player Id: "..game.Players.LocalPlayer.UserId .."")
+
+local Tab5Section = Tab5:NewSection("Account Age: "..game.Players.LocalPlayer.AccountAge.."")
+
